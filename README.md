@@ -24,19 +24,19 @@ El archivo `docker-compose.yml` configura el entorno de ejecución de la aplicac
 
    ```bash
    docker-compose up --build
-   ```
+```
 
 ### **ejecutar posteriormente**:
 
    ```bash
     docker-compose up
-    ```
+```
 
 ### **Detener los contenedores**:
 
    ```bash
    docker-compose down
-   ```
+```
 
 ### **Acceder a la aplicación**:
 
@@ -60,4 +60,5 @@ http://localhost:8080/prestamos/actualizar/{id}
 #### DELETE
 http://localhost:8080/prestamos/eliminar/{id}
 
+![image](https://github.com/user-attachments/assets/07ed4517-567b-4c7d-9cd5-956fbf87ebd2)
 
