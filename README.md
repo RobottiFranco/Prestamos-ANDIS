@@ -1,7 +1,5 @@
 # Prestamos-ANDIS
 
-La rama main es la rama principal de este repositorio y se encuentra protegida. Para contribuir, por favor, crea una rama (o use la dev) y solicita un pull request.
-
 ## Descripción
 
 Este proyecto es una aplicación de gestión de préstamos desarrollada en Spring Boot. Utiliza un archivo JSON (`prestamos.json`) como base de datos en lugar de una base de datos real. La aplicación está diseñada para gestionar préstamos y se ejecuta en un contenedor Docker usando Docker Compose.
