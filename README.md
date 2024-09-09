@@ -16,9 +16,20 @@ Este proyecto es una aplicación de gestión de préstamos desarrollada en Sprin
 
 El archivo `docker-compose.yml` configura el entorno de ejecución de la aplicación. Asegúrate de tener Docker y Docker Compose instalados.
 
+## Requisitos
+
+- **Java 17** o superior
+- **Docker & Docker Compose**
+
 ## Uso
 
+### **Compilar y empaquetar el proyecto**
+   ```bash
+   ./mvnw clean package -DskipTests
+```
+
 ### **Construir la imagen Docker y ejecutar los contenedores**:
+
 
    ```bash
    docker-compose up --build
