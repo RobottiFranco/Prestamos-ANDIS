@@ -1,0 +1,43 @@
+En la carpeta del proyecto (tener instalado node):
+
+PARA CREAR PROYECTO GRAPHQL
+npm init
+npm install graphql --save
+npm install express graphql-http graphql --save
+npm install --save ruru
+
+abrir localhost:4000
+
+QUERIES PARA CORRER EN LA WEB
+#{obtenerTodos {id montoPrestamo}}
+#{obtenerPorId(id:2) {montoPrestamo}}
+#{obtenerPorCliente(idCliente:102) {montoPrestamo}}
+#{obtenerPagados {montoPrestamo}}
+#{obtenerNoPagados {montoPrestamo}}
+#mutation {
+#  guardar(prestamo: {
+#    id: 20,
+#    montoPrestamo: 10000,
+#    interes: 3,
+#    cuotas: 24,
+#    fechaInicio: "2023-01-01",
+#    balance: 9500,
+#    idCliente: 101,
+#    pagado: true,
+# })}
+
+mutation {
+ actualizar(id:2, prestamo: {
+    id: 2,
+    montoPrestamo: 0,
+    interes: 3,
+    cuotas: 24,
+    fechaInicio: "2023-01-01",
+    balance: 9500,
+    idCliente: 101,
+    pagado: true,
+})}
+
+#mutation {
+# eliminar(id: 3) 
+#}
