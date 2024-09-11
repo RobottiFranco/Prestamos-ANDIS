@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.andis.prestamos";
+option java_outer_classname = "PrestamoOuterClass";
+
+import "google/protobuf/empty.proto";
+
+// Mensajes
+message Prestamo {
+    int64 id = 1;
+    int64 monto_prestamo = 2;
+    double interes = 3;
+    int32 cuotas = 4;
+    string fechainicio = 5;
+    int64 balance = 6;
+    int64 id_cliente = 7;
+    bool pagado = 8;
+}
+
+message PrestamoRequest {
+    int64 id = 1;
+}
+
+message ClienteRequest {
+    int64 id_cliente = 1;
+}
+
+message PrestamoResponse {
+    Prestamo prestamo = 1;
+}
+
+message ListaPrestamosResponse {
+    repeated Prestamo prestamos = 1;
+}
+
+// Servicios
+service PrestamoService {
+    rpc ObtenerTodos (google.protobuf.Empty) returns (ListaPrestamosResponse);
+    rpc ObtenerPorId (PrestamoRequest) returns (PrestamoResponse);
+    rpc ObtenerPrestamosPorCliente (ClienteRequest) returns (ListaPrestamosResponse);
+    rpc ObtenerPrestamosPagados (google.protobuf.Empty) returns (ListaPrestamosResponse);
+    rpc ObtenerPrestamosNoPagados (google.protobuf.Empty) returns (ListaPrestamosResponse);
+}
