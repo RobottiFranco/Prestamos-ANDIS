@@ -8,6 +8,7 @@ import com.andis.prestamos.models.TokenBucketRateLimiter;
 import com.andis.prestamos.services.PrestamoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import java.time.Clock;
 import java.time.Duration;
@@ -24,8 +25,7 @@ public class PrestamoController {
             1,
             Duration.ofSeconds(60),
             5,
-            Clock.systemUTC() 
-    );
+            Clock.systemUTC());
 
     @GetMapping("/obtenerTodos")
     public ResponseEntity<List<Prestamo>> obtenerTodos() {
@@ -45,9 +45,15 @@ public class PrestamoController {
         return ResponseEntity.ok(PrestamoList);
     }
 
+    @Cacheable("cliente")
     @GetMapping("/obtenerPorCliente/{idCliente}")
     public ResponseEntity<List<Prestamo>> obtenerPrestamosPorCliente(@PathVariable Long idCliente) {
         List<Prestamo> PrestamoList = prestamoService.obtenerPrestamosPorCliente(idCliente);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return ResponseEntity.ok(PrestamoList);
     }
 
