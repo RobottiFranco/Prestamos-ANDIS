@@ -1,11 +1,16 @@
 package com.andis.prestamos.controllers;
 
 import org.springframework.web.bind.annotation.*;
+
+import com.andis.prestamos.models.FixedWindowRateLimiter;
 import com.andis.prestamos.models.Prestamo;
+import com.andis.prestamos.models.TokenBucketRateLimiter;
 import com.andis.prestamos.services.PrestamoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import java.time.Clock;
+import java.time.Duration;
 
 @RestController
 @RequestMapping("/prestamos")
@@ -14,14 +19,28 @@ public class PrestamoController {
     @Autowired
     private PrestamoService prestamoService;
 
+    FixedWindowRateLimiter fixedWindowRateLimiter = new FixedWindowRateLimiter();
+    TokenBucketRateLimiter bucketRateLimiter = new TokenBucketRateLimiter(
+            1,
+            Duration.ofSeconds(60),
+            5,
+            Clock.systemUTC() 
+    );
+
     @GetMapping("/obtenerTodos")
     public ResponseEntity<List<Prestamo>> obtenerTodos() {
+        if (!fixedWindowRateLimiter.allowed("obtenerTodos")) {
+            return ResponseEntity.status(429).build();
+        }
         List<Prestamo> PrestamoList = prestamoService.obtenerTodos();
         return ResponseEntity.ok(PrestamoList);
     }
 
     @GetMapping("/obtenerPorId/{id}")
     public ResponseEntity<Prestamo> obtenerPorId(@PathVariable Long id) {
+        if (!bucketRateLimiter.allowed("obtenerPorId")) {
+            return ResponseEntity.status(429).build();
+        }
         Prestamo PrestamoList = prestamoService.obtenerPorId(id);
         return ResponseEntity.ok(PrestamoList);
     }
